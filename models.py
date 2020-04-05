@@ -23,3 +23,27 @@ class Company(db.Model):
             'revenue': self.revenue,
             'ticker':self.ticker
         }
+
+class JobListing(db.Model):
+    __tablename__ = 'joblistings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    company = db.Column(db.String()) # eventually a reference to Company
+    title = db.Column(db.String())
+    datePosted = db.Column(db.String())
+
+    def __init__(self, company, title, datePosted):
+        self.company = company
+        self.title = title
+        self.datePosted = datePosted
+
+    def __repr__(self):
+        return "<JobListing: title='%s'" % (self.title)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'company': self.company,
+            'title': self.title,
+            'datePosted':self.datePosted
+        }
