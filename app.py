@@ -56,7 +56,7 @@ def get_all_jobs():
 	    return(str(e))
 
 @app.route("/get/jobs/<id_>")
-def get_by_id(id_):
+def get_job_id(id_):
     try:
         job_listing=JobListing.query.filter_by(id=id_).first()
         return jsonify(job_listing.serialize())
