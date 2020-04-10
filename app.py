@@ -47,5 +47,21 @@ def get_by_id(id_):
     except Exception as e:
 	    return(str(e))
 
+@app.route("/getJobs")
+def get_all_jobs():
+    try:
+        joblistings=JobListing.query.all()
+        return  jsonify([e.serialize() for e in joblistings])
+    except Exception as e:
+	    return(str(e))
+
+@app.route("/get/jobs/<id_>")
+def get_by_id(id_):
+    try:
+        job_listing=JobListing.query.filter_by(id=id_).first()
+        return jsonify(job_listing.serialize())
+    except Exception as e:
+	    return(str(e))
+
 if __name__ == '__main__':
     app.run()
