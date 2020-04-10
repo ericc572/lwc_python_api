@@ -1,5 +1,5 @@
 # lwc_python_api: Job Scraper for LinkedIn
-LWC hackathon python flask app. It calls a scraper, scrapes the job postings on LinkedIn for a particular company, and writes it to a Postgres DB hosted on heroku.
+A very lightweight Flask API for scrapy. Will eventually be hit by a lwc (Lightning web component in salesforce). It calls a scraper, scrapes the job postings on LinkedIn for a particular company, and writes it to a Postgres DB hosted on heroku.
 
 ## App Info
 Visit app at `lwc-python-api.herokuapp.com`
