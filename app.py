@@ -55,6 +55,22 @@ def get_all_jobs():
     except Exception as e:
 	    return(str(e))
 
+@app.route("/getJobs/<company_>")
+def get_job_by_company(company_):
+    try:
+        joblistings=JobListing.query.filter_by(company=company_)
+        return jsonify([e.serialize() for e in joblistings])
+    except Exception as e:
+	    return(str(e))
+
+@app.route("/getJobs/<company_>/total")
+def get_company_count(company_):
+    try:
+        listing_count=JobListing.query.filter_by(company=company_).count()
+        return jsonify({"count": listing_count})
+    except Exception as e:
+	    return(str(e))
+
 @app.route("/get/jobs/<id_>")
 def get_job_id(id_):
     try:

@@ -13,11 +13,11 @@ from six.moves.urllib import parse
 
 class Linkedin_Site_Spider(scrapy.Spider):
     name = "linkedin_spider"
-    currentIndex = 1
-    accountName = 'microsoft'
 
-    start_urls = ["https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=microsoft"]
-
+    def __init__ (self, domain=None, accountName=""):
+        self.accountName = accountName
+        self.start_urls = [f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={accountName}"]
+        self.currentIndex = 1
 
     def parse(self, response):
         jobDivs = response.css('div.result-card__contents')
