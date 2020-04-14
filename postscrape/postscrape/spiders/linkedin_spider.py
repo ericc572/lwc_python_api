@@ -20,13 +20,16 @@ class Linkedin_Site_Spider(scrapy.Spider):
         self.currentIndex = 1
 
     def parse(self, response):
-        jobDivs = response.css('div.result-card__contents')
+        jobDivs = response.css('li.result-card--with-hover-state')
         for index, job in enumerate(jobDivs):
             item = PostscrapeItem()
             item['title'] = job.css('h3.job-result-card__title::text').get()
             item['company'] = job.css('a.job-result-card__subtitle-link::text').get()
             item['timeSincePost'] =  job.css('time::text').get()
-            yield item
+            descUrl = job.css('a.result-card__full-card-link::attr(href)').get()
+            request = scrapy.Request(descUrl, callback=self.get_job_function)
+            request.meta['item'] = item
+            yield request
 
             if self.currentIndex < 25:
                 next_link = response.url
@@ -35,4 +38,10 @@ class Linkedin_Site_Spider(scrapy.Spider):
 
             self.currentIndex += 1
 
+    def get_job_function(self, response):
+        item = response.meta['item']
+        job_criteria_list = response.css('ul.job-criteria__list')
+        item['category'] = job_criteria_list.css('span.job-criteria__text--criteria::text')[2].get()
+        #  print(item['category'])
+        return item
 

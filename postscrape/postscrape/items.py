@@ -14,3 +14,4 @@ class PostscrapeItem(scrapy.Item):
     title = scrapy.Field()
     company = scrapy.Field()
     timeSincePost = scrapy.Field()
+    category = scrapy.Field()
