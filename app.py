@@ -100,12 +100,8 @@ def get_job_id(id_):
 @app.route('/fetchJobs', methods = ['POST'])
 def fetch_jobs_from_scrapy():
     accountName = request.json['accountName']
-    print("accountName: %" + accountName)
-    process = subprocess.run(["./fire_scraper"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, input="{accountName}")
-    #output, errors = process.communicate(accountName="Netflix")
-    #process.wait()
-    # print(output)
-    # print (errors)
+    print("accountName: % " + accountName)
+    process = subprocess.run(['sh','fire_scraper', accountName], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     return {"msg": "Created Successfully"}, 201
 
 if __name__ == '__main__':
