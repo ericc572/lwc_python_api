@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'postscrape.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'postscrape (+http://www.yourdomain.com)'
+USER_AGENT = 'lwc-python-api (+http://www.lwc-python-api.herokuapp.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
