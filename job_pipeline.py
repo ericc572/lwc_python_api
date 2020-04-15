@@ -9,7 +9,8 @@ with open('data.json') as json_file:
     for p in data:
         title = p['title']
         company = p['company']
-        datePosted = p['timeSincePost']
+        timeSincePost = p['timeSincePost']
+        category = p['category']
         # print('Title: ' + p['title'])
         # print('Company: ' + p['company'])
         # print('DatePosted: ' + p['timeSincePost'])
@@ -17,7 +18,8 @@ with open('data.json') as json_file:
         job_listing = JobListing(
             title=title,
             company=company,
-            datePosted=datePosted
+            timeSincePost=timeSincePost,
+            category=category
         )
         db.session.add(job_listing)
         db.session.commit()

@@ -42,6 +42,5 @@ class Linkedin_Site_Spider(scrapy.Spider):
         item = response.meta['item']
         job_criteria_list = response.css('ul.job-criteria__list')
         item['category'] = job_criteria_list.css('span.job-criteria__text--criteria::text')[2].get()
-        #  print(item['category'])
         return item
 
