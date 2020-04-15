@@ -11,10 +11,7 @@ with open('data.json') as json_file:
         company = p['company']
         timeSincePost = p['timeSincePost']
         category = p['category']
-        # print('Title: ' + p['title'])
-        # print('Company: ' + p['company'])
-        # print('DatePosted: ' + p['timeSincePost'])
-        # print('')
+
         job_listing = JobListing(
             title=title,
             company=company,
