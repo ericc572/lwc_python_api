@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 
 app = Flask(__name__)
 
@@ -68,6 +69,22 @@ def get_company_count(company_):
     try:
         listing_count=JobListing.query.filter_by(company=company_).count()
         return jsonify({"count": listing_count})
+    except Exception as e:
+	    return(str(e))
+
+@app.route("/getJobs/<company_>/<category_>/count")
+def get_company_by_category(company_, category_):
+    try:
+        listing_count=JobListing.query.filter_by(company=company_, category=category_).count()
+        return jsonify({"{category_}": listing_count})
+    except Exception as e:
+	    return(str(e))
+
+@app.route("/getJobs/<company_>/categories")
+def get_all_categories(company_):
+    try:
+        categories = JobListing.query.with_entities(JobListing.category, func.count(JobListing.category)).group_by(JobListing.category).all()
+        return jsonify(dict(categories))
     except Exception as e:
 	    return(str(e))
 

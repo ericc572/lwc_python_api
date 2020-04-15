@@ -14,7 +14,8 @@ Visit app at `lwc-python-api.herokuapp.com`
 - TODO: Get total count of company job listings: `/getJobs/<company_name>/count`
 - TODO: Get count of company job listings by category: `/getJobs/<company_name>/<category>/count `
 
-# How to call scraper 
+# How to scrape data and seed db
 Do:
 
-`scrapy crawl linkedin_spider` calls linkedin_spider.py
+`scrapy crawl linkedin_spider -a accountName=GoDaddy -o ../data.json ` calls linkedin_spider and passes in accountName = GoDaddy, and writes it to data.json
+run `python job_pipeline.py`

@@ -29,6 +29,7 @@ class Linkedin_Site_Spider(scrapy.Spider):
             descUrl = job.css('a.result-card__full-card-link::attr(href)').get()
             request = scrapy.Request(descUrl, callback=self.get_job_function)
             request.meta['item'] = item
+
             yield request
 
             if self.currentIndex < 25:
@@ -42,6 +43,5 @@ class Linkedin_Site_Spider(scrapy.Spider):
         item = response.meta['item']
         job_criteria_list = response.css('ul.job-criteria__list')
         item['category'] = job_criteria_list.css('span.job-criteria__text--criteria::text')[2].get()
-        #  print(item['category'])
         return item
 

@@ -1,5 +1,8 @@
 
 from app import db
+from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
 class Company(db.Model):
     __tablename__ = 'companies'
@@ -30,12 +33,14 @@ class JobListing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     company = db.Column(db.String()) # eventually a reference to Company
     title = db.Column(db.String())
-    datePosted = db.Column(db.String())
+    timeSincePost = db.Column(db.String())
+    category = db.Column(db.String())
 
-    def __init__(self, company, title, datePosted):
+    def __init__(self, company, title, timeSincePost, category):
         self.company = company
         self.title = title
-        self.datePosted = datePosted
+        self.timeSincePost = timeSincePost
+        self.category = category
 
     def __repr__(self):
         return "<JobListing: title='%s'" % (self.title)
@@ -45,5 +50,6 @@ class JobListing(db.Model):
             'id': self.id,
             'company': self.company,
             'title': self.title,
-            'datePosted':self.datePosted
+            'timeSincePost':self.timeSincePost,
+            'category': self.category
         }

@@ -9,15 +9,14 @@ with open('data.json') as json_file:
     for p in data:
         title = p['title']
         company = p['company']
-        datePosted = p['timeSincePost']
-        # print('Title: ' + p['title'])
-        # print('Company: ' + p['company'])
-        # print('DatePosted: ' + p['timeSincePost'])
-        # print('')
+        timeSincePost = p['timeSincePost']
+        category = p['category']
+
         job_listing = JobListing(
             title=title,
             company=company,
-            datePosted=datePosted
+            timeSincePost=timeSincePost,
+            category=category
         )
         db.session.add(job_listing)
         db.session.commit()
