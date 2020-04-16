@@ -105,6 +105,7 @@ def get_job_id(id_):
 def fetch_jobs_from_scrapy():
     accountName = request.json['accountName']
     print("accountName " + accountName)
+    print("enqueuing job....")
     result = q.enqueue(run_sub_process, accountName)
     return {"result": "enqueued job"}, 201
 
