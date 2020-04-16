@@ -3,7 +3,10 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 import subprocess
+from rq import Queue
+from worker import conn
 
+q = Queue(connection=conn)
 app = Flask(__name__)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -101,8 +104,11 @@ def get_job_id(id_):
 def fetch_jobs_from_scrapy():
     accountName = request.json['accountName']
     print("accountName: % " + accountName)
-    process = subprocess.run(['sh','fire_scraper', accountName], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    return {"msg": "Created Successfully"}, 201
+    result = q.enqueue(run_sub_process(accountName))
+    return {"result": result}, 201
+
+def run_sub_process(accountName):
+    subprocess.run(['sh','fire_scraper', accountName], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 if __name__ == '__main__':
     app.run()

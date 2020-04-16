@@ -10,7 +10,7 @@ with open('data.json') as json_file:
         title = p['title']
         company = p['company']
         timeSincePost = p['timeSincePost']
-        category = p['category']
+        category = ""#p['category']
 
         job_listing = JobListing(
             title=title,

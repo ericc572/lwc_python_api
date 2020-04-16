@@ -28,7 +28,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 2
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -41,8 +41,9 @@ DOWNLOAD_DELAY = 1
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
+      "accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+      "accept-encoding" : "gzip, deflate, sdch, br",
+      "accept-language" : "en-US,en;q=0.8,ms;q=0.6",
 }
 
 # Enable or disable spider middlewares
@@ -66,7 +67,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'postscrape.pipelines.CompanyPipeline': 300,
+   #'postscrape.pipelines.CompanyPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
