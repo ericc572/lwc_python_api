@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
-import subprocess
+
 from rq import Queue
 from worker import conn
 
@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from models import *
+from util import run_sub_process
 
 @app.route("/")
 def hello():
@@ -103,12 +104,9 @@ def get_job_id(id_):
 @app.route('/fetchJobs', methods = ['POST'])
 def fetch_jobs_from_scrapy():
     accountName = request.json['accountName']
-    print("accountName: % " + accountName)
-    result = q.enqueue(run_sub_process(accountName))
-    return {"result": result}, 201
-
-def run_sub_process(accountName):
-    subprocess.run(['sh','fire_scraper', accountName], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    print("accountName " + accountName)
+    result = q.enqueue(run_sub_process, accountName)
+    return {"result": "enqueued job"}, 201
 
 if __name__ == '__main__':
     app.run()

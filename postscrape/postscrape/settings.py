@@ -66,7 +66,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'postscrape.pipelines.CompanyPipeline': 300,
+   #'postscrape.pipelines.CompanyPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
