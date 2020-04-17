@@ -10,7 +10,19 @@ with open('data.json') as json_file:
         title = p['title']
         company = p['company']
         timeSincePost = p['timeSincePost']
-        category = ""#p['category']
+        title = title.lower()
+        # Manually check and assign categories based on string check
+        if "engineer" in title or "qa" in title or "it" in title or "software" in title:
+            category = "Engineering"
+        elif "sales" in title or "account" in title or "marketing" in title:
+            category = "Sales/Marketing"
+        elif "UX" in title or "design" in title:
+            category = "Design"
+        elif "Manager" in title:
+            category = "Management, Product"
+        else:
+            category = "Other"
+            # refactor: run ML script
 
         job_listing = JobListing(
             title=title,
