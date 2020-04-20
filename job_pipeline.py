@@ -3,8 +3,9 @@ import os
 
 from app import db
 from models import *
-
-with open('data.json') as json_file:
+jobFile = 'data.json'
+if (os.path.getsize(jobFile) > 0):
+    json_file = open(jobFile,'r')
     data = json.load(json_file)
     for p in data:
         title = p['title']
@@ -21,3 +22,4 @@ with open('data.json') as json_file:
         db.session.add(job_listing)
         db.session.commit()
         print("job listing added. Job id={}".format(job_listing.id))
+
