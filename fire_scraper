@@ -1,0 +1,9 @@
+#!/bin/bash
+#!/bin/bash
+echo "RUNNING FIRE SCRAPER WITH $0 and $1" >> cat.txt
+rm data.json && rm cat.txt
+echo "running scraper with $1" >> cat.txt
+cd postscrape && scrapy crawl linkedin_spider -a accountName=$1 -o ../data.json
+cd ..
+#echo "loading data to database" >> cat.txt
+python job_pipeline.py
