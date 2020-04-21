@@ -22,4 +22,3 @@ if (os.path.getsize(jobFile) > 0):
         db.session.add(job_listing)
         db.session.commit()
         print("job listing added. Job id={}".format(job_listing.id))
-
