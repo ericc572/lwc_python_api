@@ -16,20 +16,16 @@ from six.moves.urllib import parse
 
 class Linkedin_Site_Spider(scrapy.Spider):
     name = "linkedin_spider"
-    
     handle_httpstatus_list = [999]
-    
+
 
     def __init__ (self, domain=None, accountName=""):
         self.accountName = accountName
-        #self.start_urls = ['https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=benchling&start=800']
         self.start_urls = [f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={accountName}"]
-        self.currentIndex = 0
 
     def parse(self, response):
         jobDivs = response.css('li.result-card--with-hover-state')
         if (jobDivs and (response.status == 200)):
-            print("hello we are inside!!! " + str(self.currentIndex))
             for index, job in enumerate(jobDivs):
                 item = PostscrapeItem()
                 item['title'] = job.css('h3.job-result-card__title::text').get()

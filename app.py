@@ -14,10 +14,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from models import *
+from util import run_sub_process
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello! To get started, please make a HTTP request following the Github <a href='https://github.com/ericc572/lwc_python_api'>README</a>}"
 
 @app.route("/add")
 def add_company():
@@ -87,7 +88,8 @@ def get_company_by_category(company_, category_):
 @app.route("/getJobs/<company_>/categories")
 def get_all_categories(company_):
     try:
-        categories = JobListing.query.with_entities(JobListing.category, func.count(JobListing.category)).group_by(JobListing.category).all()
+        listings = JobListing.query.filter_by(company=company_)
+        categories = listings.with_entities(JobListing.category, func.count(JobListing.category)).group_by(JobListing.category).all()
         return jsonify(dict(categories))
     except Exception as e:
 	    return(str(e))
@@ -103,12 +105,10 @@ def get_job_id(id_):
 @app.route('/fetchJobs', methods = ['POST'])
 def fetch_jobs_from_scrapy():
     accountName = request.json['accountName']
-    print("accountName: % " + accountName)
-    result = q.enqueue(run_sub_process(accountName))
-    return {"result": result}, 201
-
-def run_sub_process(accountName):
-    subprocess.run(['sh','fire_scraper', accountName], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    print("accountName " + accountName)
+    print("enqueuing job....")
+    result = q.enqueue(run_sub_process, accountName)
+    return {"result": "enqueued job"}, 201
 
 if __name__ == '__main__':
     app.run()
