@@ -6,7 +6,9 @@ class CompanyPipeline(object):
 
     def process_item(self, item, spider):
       # Gets Craigslist posting ID
-      company = item['company'].lower()
-      if not (company in spider.accountName or spider.accountName in company):
-        raise DropItem('Dropping Item which has an invalid company name %s' % item)
+      inputKeyword = spider.accountName.lower()
+      scrapedKeyword = item['company'].lower()
+      if inputKeyword != scrapedKeyword:
+        if (inputKeyword not in scrapedKeyword) and (scrapedKeyword not in inputKeyword):
+          raise DropItem('Dropping Item which has an invalid company name %s' % item)
       return item
