@@ -5,12 +5,18 @@ from sqlalchemy import func
 import subprocess
 from rq import Queue
 from worker import conn
+from flask_basicauth import BasicAuth
 
 q = Queue(connection=conn)
 app = Flask(__name__)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['BASIC_AUTH_USERNAME'] = 'username'
+app.config['BASIC_AUTH_PASSWORD'] = os.environ['PASSWORD']
+app.config['BASIC_AUTH_FORCE'] = True
+
+basic_auth = BasicAuth(app)
 db = SQLAlchemy(app)
 
 from models import *
