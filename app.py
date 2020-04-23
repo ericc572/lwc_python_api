@@ -5,10 +5,12 @@ from sqlalchemy import func
 import subprocess
 from rq import Queue
 from worker import conn
+from flask_cors import CORS
 from flask_basicauth import BasicAuth
 
 q = Queue(connection=conn)
 app = Flask(__name__)
+CORS(app)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
