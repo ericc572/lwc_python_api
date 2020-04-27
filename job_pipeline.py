@@ -13,14 +13,20 @@ if (os.path.getsize(jobFile) > 0):
         timeSincePost = p['timeSincePost']
         title = title.lower()
         # Manually check and assign categories based on string check
-        if "engineer" in title or "qa" in title or "it" in title or "software" in title:
-            category = "Engineering"
-        elif "sales" in title or "account" in title or "marketing" in title:
-            category = "Sales/Marketing"
+        if "director" in title or "dir" in title or "chief" in title or "vp" in title or "president" in title:
+            category = "Executive"
+        elif "recruiter" in title:
+            category = "Human Resources"
+        elif "sales" in title or "account executive" in title or "development rep" in title:
+            category = "Sales"
+        elif "marketer" in title or "marketing" in title or "advertisement" in title:
+            category = "Marketing"
         elif "UX" in title or "design" in title:
             category = "Design"
-        elif "Manager" in title:
+        elif "manager" in title:
             category = "Management, Product"
+        elif "engineer" in title or "qa" in title or "it" in title or "software" in title:
+            category = "Engineering/Information Technology"
         else:
             category = "Other"
             # refactor: run ML script

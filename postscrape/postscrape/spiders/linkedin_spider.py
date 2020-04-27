@@ -17,7 +17,7 @@ from six.moves.urllib import parse
 class Linkedin_Site_Spider(scrapy.Spider):
     name = "linkedin_spider"
     handle_httpstatus_list = [999]
-    currentIndex = 1
+    currentIndex = 0
 
     def __init__ (self, domain=None, accountName=""):
         self.accountName = accountName
