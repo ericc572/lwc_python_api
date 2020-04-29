@@ -118,5 +118,13 @@ def fetch_jobs_from_scrapy():
     result = q.enqueue(run_sub_process, accountName)
     return {"result": "enqueued job"}, 201
 
+@app.route("/getJobs/<company_>/executives")
+def get_company_by_executive(company_):
+    try:
+        executiveJobs=JobListing.query.filter_by(company=company_, category="Executive")
+        return jsonify([e.serialize() for e in executiveJobs])
+    except Exception as e:
+	    return(str(e))
+
 if __name__ == '__main__':
     app.run()
