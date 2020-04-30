@@ -112,6 +112,7 @@ def get_job_id(id_):
 
 @app.route('/fetchJobs', methods = ['POST'])
 def fetch_jobs_from_scrapy():
+    request.get_json(force=True)
     accountName = request.json['accountName']
     print("accountName " + accountName)
     print("enqueuing job....")
