@@ -16,7 +16,7 @@ if (os.path.getsize(jobFile) > 0):
         if "director" in title or "dir" in title or "chief" in title or "vp" in title or "president" in title:
             category = "Executive"
         elif "recruiter" in title:
-            category = "Human Resources"
+            category = "HumanResources"
         elif "sales" in title or "account executive" in title or "development rep" in title:
             category = "Sales"
         elif "marketer" in title or "marketing" in title or "advertisement" in title:
@@ -24,9 +24,9 @@ if (os.path.getsize(jobFile) > 0):
         elif "UX" in title or "design" in title:
             category = "Design"
         elif "manager" in title:
-            category = "Management, Product"
+            category = "Management"
         elif "engineer" in title or "qa" in title or "it" in title or "software" in title:
-            category = "Engineering/Information Technology"
+            category = "EngineeringOrIT"
         else:
             category = "Other"
             # refactor: run ML script
